@@ -1,6 +1,8 @@
 import HashStrikeDisplay from './components/HashStrikeDisplay/HashStrikeDisplay';
+import HashOpportunityDisplay from './components/HashOpportunityDisplay/HashOpportunityDisplay';
 import TopBarDisplay from './components/TopBarDisplay/TopBarDisplay';
-import { HashRouter } from 'react-router-dom';
+import HomePage from './components/HomePage/HomePage';
+import { HashRouter, Routes, Route, Navigate} from 'react-router-dom';
 import { Grid, Paper } from '@mui/material';
 import './App.css';
 
@@ -14,7 +16,17 @@ function App() {
           </Grid>
           <Grid item sm={100}>
             <Paper className="main-page-item">
-              <HashStrikeDisplay />
+              <Routes>
+                <Route exact path ="/" element={<Navigate to="/home"/>} />
+                <Route path="/home" element={<HomePage />}/>
+                <Route path="/hashstrikes"
+                  element={ <HashStrikeDisplay /> }
+                />
+                {/* Add the following after we create the new page! */}
+                <Route path="/hashopportunities"
+                  element={ <HashOpportunityDisplay />}
+                />
+              </Routes>
             </Paper>
           </Grid>
         </Grid>

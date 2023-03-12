@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import { onValue, ref } from "firebase/database";
 import { db } from '../../firebase';
-import { List, ListItem, ListItemText } from '@mui/material';
 import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper} from '@mui/material';
-import './HashStrikeDisplay.css'
+import './HashOpportunityDisplay.css'
 
 const DATA_HANDLE = '16NmGYBaGKEyyAFxzeYXpEM9zB1bc8A5Dqy5ypXJY1EU';
 
-function HashStrikeDisplay() {
+function HashOpportunityDisplay() {
     const [data, setData] = useState(null);
     const [order, setOrder] = useState('desc');
     useEffect(() => {
@@ -15,7 +14,7 @@ function HashStrikeDisplay() {
         return onValue(query, (snapshot) => {
             const val = snapshot.val();
             if (snapshot.exists()) {
-                const specific = val[DATA_HANDLE]['Strikes'];
+                const specific = val[DATA_HANDLE]['Opportunities'];
                 setData(specific);
             }
         });
@@ -62,9 +61,9 @@ function HashStrikeDisplay() {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Resident</TableCell>
-              <TableCell align="right" onClick={handleRequestSort}>Number of Strikes</TableCell>
-              <TableCell align="right">Dates</TableCell>
+              <TableCell>Location</TableCell>
+              <TableCell align="right">Description</TableCell>
+              <TableCell align="right" onClick={handleRequestSort}>Strikes Worth</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -74,10 +73,10 @@ function HashStrikeDisplay() {
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  {row.Name}
+                  {row.Location}
                 </TableCell>
+                <TableCell align="right">{row.Description}</TableCell>
                 <TableCell align="right">{row.Strikes}</TableCell>
-                <TableCell align="right">{row.Dates}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -88,4 +87,4 @@ function HashStrikeDisplay() {
     );
 }
 
-export default HashStrikeDisplay;
+export default HashOpportunityDisplay;
